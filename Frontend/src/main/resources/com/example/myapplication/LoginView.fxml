@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.myapplication.controller.LoginController"
+      alignment="CENTER"
+      spacing="15"
+      style="-fx-background-color: #f1f5f9;">
+
+    <padding>
+        <Insets top="30" right="40"
+                bottom="30" left="40"/>
+    </padding>
+
+    <Label text="JegyGo"
+           style="-fx-font-size: 36px;
+                  -fx-font-weight: bold;
+                  -fx-text-fill: #2563eb;"/>
+
+    <Label text="Bejelentkezés"
+           style="-fx-font-size: 20px;"/>
+
+    <VBox alignment="CENTER"
+          spacing="10"
+          maxWidth="300">
+
+        <TextField fx:id="userField"
+                   promptText="Felhasználónév"
+                   maxWidth="Infinity"/>
+
+
+        <HBox spacing="5" alignment="CENTER_LEFT">
+
+            <StackPane HBox.hgrow="ALWAYS">
+
+                <PasswordField fx:id="passwordField"
+                               prefWidth="250"/>
+
+                <TextField fx:id="visiblePasswordField"
+                           prefWidth="250"
+                           visible="false"
+                           managed="false"/>
+
+            </StackPane>
+
+            <Button fx:id="passwordToggleButton"
+                    text="👁"
+                    onAction="#jelszoLathatosag"/>
+
+        </HBox>
+
+
+        <Button text="Bejelentkezés"
+                onAction="#bejelentkezes"
+                maxWidth="Infinity"/>
+
+        <Separator/>
+
+        <Label text="Még nincs fiókod?"/>
+
+        <Button text="Regisztráció"
+                onAction="#regisztracioMegnyitasa"
+                maxWidth="Infinity"/>
+    </VBox>
+</VBox>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane style="-fx-background-color: #f1f5f9;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.myapplication.controller.AdminController">
+
+    <top>
+        <VBox alignment="CENTER" spacing="8">
+            <padding>
+                <Insets bottom="15" top="20" />
+            </padding>
+
+            <Label style="-fx-font-size: 28px;                           -fx-font-weight: bold;                           -fx-text-fill: #2563eb;" text="JegyGo - Adminisztráció" />
+
+            <Label style="-fx-font-size: 20" text="Járatok kezelése" />
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="15">
+            <padding>
+                <Insets bottom="20" left="25" right="25" top="10" />
+            </padding>
+
+            <TitledPane collapsible="false" text="Új járat hozzáadása">
+
+                <GridPane hgap="12" vgap="12">
+                    <padding>
+                        <Insets bottom="15" left="15" right="15" top="15" />
+                    </padding>
+
+
+                    <Label text="Indulási hely:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+
+                    <TextField fx:id="indulasField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                    <Label text="Célállomás:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+
+                    <TextField fx:id="erkezesField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+                    <Label text="Indulási idő:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+
+                    <TextField fx:id="indulasIdoField" promptText="08:00" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                    <Label text="Érkezési idő:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+
+                    <TextField fx:id="erkezesIdoField" promptText="10:30" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+
+                    <Label text="Jegyár (Ft):" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+
+                    <TextField fx:id="arField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                    <Button onAction="#jaratHozzaadasa" style="-fx-background-color: #2563eb;                                    -fx-text-fill: white;" text="Járat hozzáadása" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+                </GridPane>
+            </TitledPane>
+
+            <Label style="-fx-font-size: 19px;                           -fx-font-weight: bold;" text="Meglévő járatok" />
+
+            <TableView fx:id="jaratokTable" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
+
+                <columns>
+                    <TableColumn fx:id="idColumn" prefWidth="79.59999161958694" text="ID" />
+                    <TableColumn fx:id="indulasColumn" prefWidth="155.6000213623047" text="Indulás" />
+                    <TableColumn fx:id="erkezesColumn" prefWidth="140" text="Érkezés" />
+                    <TableColumn fx:id="indulasIdoColumn" prefWidth="120" text="Indulási idő" />
+                    <TableColumn fx:id="erkezesIdoColumn" prefWidth="120" text="Érkezési idő" />
+                    <TableColumn fx:id="arColumn" prefWidth="100" text="Ár (Ft)" />
+                </columns>
+            </TableView>
+
+            <HBox alignment="CENTER_RIGHT" spacing="10">
+                <Button onAction="#jaratokBetoltese" text="Lista frissítése" />
+
+                <Button onAction="#jaratTorlese" style="-fx-background-color: #dc2626;                                -fx-text-fill: white;" text="Kiválasztott járat törlése" />
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>
