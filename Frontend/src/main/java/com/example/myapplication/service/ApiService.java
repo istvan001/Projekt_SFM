@@ -208,4 +208,24 @@ public class ApiService {
         // DELETE-kérés küldése a megadott járat törléséhez
         keres("DELETE", "/jaratok/" + id, null);
     }
+    // Új jegyfoglalás elküldése a Backendnek
+    public static JsonNode foglalasLetrehozasa(
+            int jaratId,
+            String utazasDatuma,
+            String jegyTipus,
+            int utasokSzama
+    ) throws IOException, InterruptedException {
+
+        // A foglalási adatok elküldése POST-kéréssel
+        return keres(
+                "POST",
+                "/foglalasok",
+                Map.of(
+                        "jaratId", jaratId,
+                        "utazasDatuma", utazasDatuma,
+                        "jegyTipus", jegyTipus,
+                        "utasokSzama", utasokSzama
+                )
+        );
+    }
 }

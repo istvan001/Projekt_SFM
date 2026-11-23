@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER"
+      spacing="16"
+      prefWidth="480"
+      style="-fx-background-color: #f1f5f9;"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.myapplication.controller.BookingController">
+
+    <padding>
+        <Insets top="25" right="30" bottom="25" left="30"/>
+    </padding>
+
+    <Label text="JegyGo"
+           style="-fx-font-size: 30px;
+                  -fx-font-weight: bold;
+                  -fx-text-fill: #2563eb;"/>
+
+    <Label text="Jegyfoglalás"
+           style="-fx-font-size: 21px;"/>
+
+    <VBox spacing="10"
+          style="-fx-background-color: white;
+                 -fx-background-radius: 10;
+                 -fx-padding: 18;">
+
+        <Label text="Kiválasztott járat"
+               style="-fx-font-weight: bold;
+                      -fx-font-size: 15px;"/>
+
+        <Label fx:id="utvonalLabel"
+               style="-fx-font-size: 20px;
+                      -fx-font-weight: bold;
+                      -fx-text-fill: #2563eb;"/>
+
+        <Label text="Utazás dátuma:"/>
+        <Label fx:id="datumLabel"/>
+
+        <Label text="Indulás – érkezés:"/>
+        <Label fx:id="idoLabel"/>
+
+        <Label text="Jegy alapára:"/>
+        <Label fx:id="alapArLabel"/>
+
+    </VBox>
+
+    <VBox spacing="8">
+        <Label text="Jegytípus kiválasztása"/>
+
+        <ComboBox fx:id="jegyTipusCombo"
+                  prefWidth="400"
+                  maxWidth="400"
+                  promptText="Válassz jegytípust"/>
+    </VBox>
+
+    <VBox spacing="8">
+        <Label text="Utasok száma"/>
+
+        <Spinner fx:id="utasokSzamaSpinner"
+                 prefWidth="400"
+                 maxWidth="400"/>
+    </VBox>
+
+    <Separator/>
+
+    <Label text="Fizetendő összeg:"
+           style="-fx-font-size: 16px;
+                  -fx-font-weight: bold;"/>
+
+    <Label fx:id="vegosszegLabel"
+           style="-fx-font-size: 25px;
+                  -fx-font-weight: bold;
+                  -fx-text-fill: #16a34a;"/>
+    <Button fx:id="foglalasButton"
+            text="Foglalás véglegesítése"
+            onAction="#foglalasVeglegesitese"
+            prefWidth="400"
+            style="-fx-background-color: #2563eb;
+                   -fx-text-fill: white;
+                   -fx-font-size: 15px;
+                   -fx-font-weight: bold;"/>
+
+    <Button text="Bezárás"
+            onAction="#bezaras"
+            prefWidth="400"/>
+
+</VBox>

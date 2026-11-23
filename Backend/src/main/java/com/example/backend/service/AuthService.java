@@ -200,4 +200,34 @@ public class AuthService {
             }
         }
     }
+    // A bejelentkezett felhasználó azonosítójának lekérése
+    public int felhasznaloIdLekerdezese(String authorization) {
+
+        // Ellenőrizzük, hogy van-e érvényes Authorization fejléc
+        if (authorization == null
+                || !authorization.startsWith("Bearer ")) {
+
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED,
+                    "Bejelentkezés szükséges!"
+            );
+        }
+
+        // A token kinyerése
+        String token = authorization.substring(7);
+
+        // A tokenhez tartozó felhasználó azonosítójának lekérése
+        Integer userId = sessions.get(token);
+
+        // Érvénytelen vagy lejárt munkamenet ellenőrzése
+        if (userId == null) {
+
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED,
+                    "Érvénytelen munkamenet!"
+            );
+        }
+
+        return userId;
+    }
 }

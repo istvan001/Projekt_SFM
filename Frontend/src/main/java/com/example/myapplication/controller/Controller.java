@@ -16,6 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
 /*
  * Controller.java
  *
@@ -44,6 +52,8 @@ public class Controller {
     @FXML private TableColumn<Jarat, String> indulasIdoColumn;
     @FXML private TableColumn<Jarat, String> erkezesIdoColumn;
     @FXML private TableColumn<Jarat, Integer> arColumn;
+    // A foglalási gombokat tartalmazó oszlop
+    @FXML private TableColumn<Jarat, Void> foglalasColumn;
 
     // A backendtől lekért összes járat tárolása
     private List<Jarat> osszesJarat = new ArrayList<>();
@@ -99,6 +109,33 @@ public class Controller {
                         data.getValue().getAr()
                 )
         );
+        // Foglalás gomb létrehozása minden járat sorában
+        foglalasColumn.setCellFactory(column -> new TableCell<>() {
+
+            private final Button foglalasButton = new Button("Foglalás");
+
+            {
+                foglalasButton.setMaxWidth(Double.MAX_VALUE);
+
+                foglalasButton.setOnAction(event -> {
+
+                    // Az aktuális sorban szereplő járat lekérése
+                    Jarat kivalasztottJarat =
+                            getTableView().getItems().get(getIndex());
+
+                    // Megnyitjuk a foglalási folyamatot
+                    foglalasMegnyitasa(kivalasztottJarat);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                // Üres sornál ne jelenjen meg gomb
+                setGraphic(empty ? null : foglalasButton);
+            }
+        });
 
         // Ha az indulási állomás megváltozik,
         // frissítjük az elérhető célállomásokat
@@ -281,6 +318,51 @@ public class Controller {
             alert.setHeaderText(null);
             alert.setContentText("Nincs megfelelő járat.");
             alert.showAndWait();
+        }
+    }
+    // A kiválasztott járat foglalási folyamatának elindítása
+    private void foglalasMegnyitasa(Jarat jarat) {
+
+        try {
+            // A foglalási felület betöltése
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/com/example/myapplication/BookingView.fxml"
+                    )
+            );
+
+            Parent root = loader.load();
+
+            // A foglalási Controller elérése
+            BookingController controller = loader.getController();
+
+            // A kiválasztott járat és dátum átadása
+            controller.adatokBeallitasa(
+                    jarat,
+                    datumPicker.getValue()
+            );
+
+            // Új ablak létrehozása
+            Stage stage = new Stage();
+
+            stage.setTitle("JegyGo - Jegyfoglalás");
+
+            stage.setScene(new Scene(root));
+
+            // A keresőablathoz kapcsolódó ablak legyen
+            stage.initOwner(jaratokTable.getScene().getWindow());
+
+            stage.initModality(Modality.WINDOW_MODAL);
+
+            stage.setResizable(false);
+
+            stage.showAndWait();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+            hiba("Nem sikerült megnyitni a jegyfoglalási ablakot!");
         }
     }
 
